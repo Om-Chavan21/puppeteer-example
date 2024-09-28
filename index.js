@@ -13,7 +13,7 @@ app.get("/screenshot", async (req, res) => {
     await browser.close();
     res.type("image/png").send(screenshot);
   } catch (error) {
-    res.status(500).send("Error taking screenshot");
+    res.status(500).send(`Error taking screenshot. ${error}`);
   }
 });
 

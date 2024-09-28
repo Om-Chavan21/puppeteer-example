@@ -1,19 +1,25 @@
+// index.js
 const express = require("express");
 const puppeteer = require("puppeteer");
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/screenshot", async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true, // Run in headless mode
+      args: ["--no-sandbox", "--disable-setuid-sandbox"], // Required for Render
+    });
     const page = await browser.newPage();
-    await page.goto("https://example.com");
+    await page.goto("https://example.com", { waitUntil: "networkidle0" });
     const screenshot = await page.screenshot();
     await browser.close();
     res.type("image/png").send(screenshot);
   } catch (error) {
-    res.status(500).send(`Error taking screenshot. ${error}`);
+    console.error(error);
+    res.status(500).send("Error taking screenshot");
   }
 });
 

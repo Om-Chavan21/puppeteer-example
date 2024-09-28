@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Update and install dependencies for Chrome
+# Update package lists and install dependencies for Chrome
 apt-get update -y && apt-get install -y wget gnupg2
 
 # Add Google Chrome's GPG key and repository

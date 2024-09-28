@@ -1,7 +1,6 @@
 // index.js
 const express = require("express");
 const puppeteer = require("puppeteer");
-require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.get("/screenshot", async (req, res) => {
   try {
     const browser = await puppeteer.launch({
-      headless: true, // Run in headless mode
+      headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"], // Required for Render
     });
     const page = await browser.newPage();
